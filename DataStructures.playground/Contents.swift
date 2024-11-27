@@ -4,21 +4,26 @@ import UIKit
 
 let intArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-func reversAndFilter(_ array: [Int], toDelete: Int) -> [Int] {
-    return array.reversed().filter { $0 != toDelete }
+func reverseAndFilter(_ array: [Int], toDelete: Int) -> [Int] {
+    var reversedArray = [Int]()
+    for elem in array {
+        reversedArray.insert(elem, at: 0)
+    }
+    return reversedArray.filter { $0 != toDelete }
 }
 
-let result1 = reversAndFilter(intArray, toDelete: 3)
+let result1 = reverseAndFilter(intArray, toDelete: 3)
+print(result1)
 
 // 2. Дан массив строк, верните подмассив в котором будут строки больше указанной длины
 
 let stringArray = ["Hello", "World", "HelloWorld", "Привет", "Мир"]
 
-func subarrayWithLenght(_ array: [String], length: Int) -> [String]? {
+func subarray(_ array: [String], with length: Int) -> [String]? {
     return array.filter { $0.count > length }
 }
 
-let result2 = subarrayWithLenght(stringArray, length: 5)
+let result2 = subarray(stringArray, with: 5)
 
 // 3. Дан массив целых чисел, верните подмассив в котором будут только нечетные числа
 
@@ -30,11 +35,11 @@ let result3 = filterUneven(intArray)
 
 // 4. Напишите функцию, которая принимает массив чисел и возвращает массив чисел, возведенных в квадрат
 
-func arraySquared(_ array: [Int]) -> [Int] {
+func squared(_ array: [Int]) -> [Int] {
     return array.map { $0 * $0 }
 }
 
-let result4 = arraySquared(intArray)
+let result4 = squared(intArray)
 
 
 // 5. Напишите функцию, которая объединяет два отсортированных массива в один отсортированный массив без использования метода sort
@@ -42,7 +47,7 @@ let result4 = arraySquared(intArray)
 let array1 = [10, 20, 30, 40, 50]
 let array2 = [1, 10, 15, 25, 30, 35, 45]
 
-func joinSortedArrays(_ array1: [Int], _ array2: [Int]) -> [Int] {
+func joinSortedArrays(_ array1: [Int], and array2: [Int]) -> [Int] {
     var result: [Int] = []
     var i = 0
     var j = 0
@@ -70,11 +75,11 @@ func joinSortedArrays(_ array1: [Int], _ array2: [Int]) -> [Int] {
     return result
 }
 
-let result5 = joinSortedArrays(array1, array2)
+let result5 = joinSortedArrays(array1, and: array2)
 
 // 6. Напишите функцию, которая принимает на вход два массива и возвращает массив, содержащий только уникальные элементы, присутствующие в обоих входных массивах.
 
-func uniqueElementsFromArrays(_ array1: [Int], _ array2: [Int]) -> [Int]? {
+func uniqueElementsFrom(_ array1: [Int], and array2: [Int]) -> [Int]? {
     let set2 = Set(array2)
     var result: [Int] = []
     var seen: Set<Int> = []
@@ -88,12 +93,12 @@ func uniqueElementsFromArrays(_ array1: [Int], _ array2: [Int]) -> [Int]? {
     return result
 }
 
-let result6 = uniqueElementsFromArrays(array1, array2)
+let result6 = uniqueElementsFrom(array1, and: array2)
 
 
 // 7. Дан массив чисел, реализуйте функцию, которая находит в нем подмассив заданного размера с наибольшей суммой элементов.
 
-func biggestSubarrayOfSize(_ array: [Int], size: Int) -> [Int]? {
+func biggestSubarray(_ array: [Int], of size: Int) -> [Int]? {
     guard size > 0, size <= array.count else { return nil }
     
     var maxSum = 0
@@ -116,15 +121,15 @@ func biggestSubarrayOfSize(_ array: [Int], size: Int) -> [Int]? {
 }
 
 let unsortedArray = [1, 2, 5, 2, 8, 1, 5]
-let result7 = biggestSubarrayOfSize(unsortedArray, size: 3)
+let result7 = biggestSubarray(unsortedArray, of: 3)
 
 // 8. Напишите функцию, проверяющую, является ли один set подмножеством второго set.
 
-func isContainsSubset(_ set1: Set<String>, _ set2: Set<String>) -> Bool {
+func isContainingSubset(_ set1: Set<String>, _ set2: Set<String>) -> Bool {
     return set2.isSubset(of: set1)
 }
 
-print(isContainsSubset(["cocoa beans", "sugar", "cocoa butter", "salt"], ["cocoa beans", "sugar"]))
+print(isContainingSubset(["cocoa beans", "sugar", "cocoa butter", "salt"], ["cocoa beans", "sugar"]))
 
 // 9. Напишите функцию, которая вычисляет симметричную разницу между двумя множествами, то есть элементы, которые присутствуют в одном из множеств, но не в обоих.
 
@@ -193,7 +198,7 @@ func jsonToDictionary<T: Decodable>(_ jsonString: String, as type: T.Type) throw
 
 // 13. Создайте функцию, которая удаляет повторяющиеся значения из словаря, сохраняя только последнее вхождение каждого значения
 
-func deleteDuplicatesFromDictionary<K: Hashable, V: Hashable>(_ dict: [K: V]) -> [K: V] {
+func removeDuplicates<K: Hashable, V: Hashable>(from dict: [K: V]) -> [K: V] {
     var uniqueValues = Set<V>()
     var result: [K: V] = [:]
     
